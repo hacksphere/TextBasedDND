@@ -14,6 +14,7 @@
 		println "Trainer: I can upgrade your block or evade."
 		button "upgrade block", "Upgrade Block to #{block + 1} (#{upgradeBlockXPCost} xp)"
 		button "upgrade evade", "Upgrade Evade to #{@evade + .1} (#{upgradeEvadeXPCost} xp)"
+		button "inTown", "Back to town square"
 	else if @state == "upgrade evade"
 		if @xp >= upgradeEvadeXPCost
 			@xp -= upgradeEvadeXPCost
@@ -119,24 +120,33 @@
 			@gp -= cost
 		else
 			println "you trying to cheat me boy."
-			setState "mage"
+		setState "mage"
 	else if @state == "potions"
 		println "Potions will give you momentary advantages over enemies but they only last for a single battle."
 		button "Health Potion buying", "Buy Health potion (30 gp)"
+		button "mage", "Thanks!"
 	else if @state == "staffs"
 		println "Staffs are what make the mage, if you watched lord of the rings you would know that."
 		setState "mage"
 	else if @state == "scrolls"
 		println "Scrolls are powerfull spells that can decimate your enemy."
-		setState "mage"
+		button "damage-curse scroll buying", "Buy a damage-curse scroll"
+		button "mage", "Thanks!"
 	else if @state == "Health Potion buying"
 		if	gp >= 30
 			gp -= 30
 			inventory.push(new HealthPotion())
 		else
 			println "You trying to cheat me scamp!!!"
-
 		setState "mage"
+	else if @state == "damage-curse scroll buying"
+		if gp >= 50
+			gp -= 50
+			inventory.push(new DamageCurseScroll())
+		else
+			println "You aint got the dough, bro."
+		setState "mage"
+
 	# ------------ People ------------
 	else if @state == "people"
 		if prob .25

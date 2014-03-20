@@ -141,28 +141,28 @@ $ = jQuery
 	@turn++
 
 #Initialize everything
-sixSidedDie = new Die 1, 6, 0
-tenSidedDie = new Die 1, 10, 0
-twentySidedDie = new Die 1, 20, 0
-hundredSidedDie = new Die 1, 100, 0
+@sixSidedDie = new Die 1, 6, 0
+@tenSidedDie = new Die 1, 10, 0
+@twentySidedDie = new Die 1, 20, 0
+@hundredSidedDie = new Die 1, 100, 0
 
 #Drops
-smallDrop = new Die 2, 200, -100
-mediumDrop = new Die 4, 200, -200
-largeDrop = new Die 6, 300, -300
-hugeDrop = new Die 12, 400, -500
+@smallDrop = new Die 2, 200, -100
+@mediumDrop = new Die 4, 200, -200
+@largeDrop = new Die 6, 300, -300
+@hugeDrop = new Die 12, 400, -500
 
 #Damage
-smallDamage = new Die 3, 6, -3
-mediumDamage = new Die 6, 6, -6
-largeDamage = new Die 9, 9, -9
-hugeDamage = new Die 15, 12, -2
+@smallDamage = new Die 3, 6, -3
+@mediumDamage = new Die 6, 6, -6
+@largeDamage = new Die 9, 9, -9
+@hugeDamage = new Die 15, 12, -2
 
 #HPs
-smallHP = new Die 4, 5, +20
-mediumHP = new Die 8, 5, +40
-largeHP = new Die 12, 7, +60
-hugeHP = new Die 15, 15, +80
+@smallHP = new Die 4, 5, +20
+@mediumHP = new Die 8, 5, +40
+@largeHP = new Die 12, 7, +60
+@hugeHP = new Die 15, 15, +80
 
 
 

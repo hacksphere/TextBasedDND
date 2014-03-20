@@ -94,3 +94,24 @@ class @BlockPotion extends Potion
 
 	toString: ->
 		return "Block Potion"
+
+###
+Scrolls
+###
+class Scroll extends Item
+	constructor: () ->
+
+class DamageCurseScroll extends Scroll
+	constructor: () ->
+
+	use: ->
+		enemies[0].damage = 0
+
+	toString: ->
+		return "Damage-curse scroll"
+
+class PoisonScroll extends Scroll
+	constructor: () ->
+
+	use: ->
+		

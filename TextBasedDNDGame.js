@@ -1,5 +1,6 @@
 (function() {
-  var __hasProp = {}.hasOwnProperty,
+  var DamageCurseScroll, PoisonScroll, Scroll,
+    __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   this.Item = (function() {
@@ -177,6 +178,48 @@
     return BlockPotion;
 
   })(Potion);
+
+  /*
+  Scrolls
+  */
+
+
+  Scroll = (function(_super) {
+    __extends(Scroll, _super);
+
+    function Scroll() {}
+
+    return Scroll;
+
+  })(Item);
+
+  DamageCurseScroll = (function(_super) {
+    __extends(DamageCurseScroll, _super);
+
+    function DamageCurseScroll() {}
+
+    DamageCurseScroll.prototype.use = function() {
+      return enemies[0].damage = 0;
+    };
+
+    DamageCurseScroll.prototype.toString = function() {
+      return "Damage-curse scroll";
+    };
+
+    return DamageCurseScroll;
+
+  })(Scroll);
+
+  PoisonScroll = (function(_super) {
+    __extends(PoisonScroll, _super);
+
+    function PoisonScroll() {}
+
+    PoisonScroll.prototype.use = function() {};
+
+    return PoisonScroll;
+
+  })(Scroll);
 
 }).call(this);
 
@@ -388,7 +431,8 @@ Blacksmith
     } else if (this.state === "Trainer") {
       println("Trainer: I can upgrade your block or evade.");
       button("upgrade block", "Upgrade Block to " + (block + 1) + " (" + upgradeBlockXPCost + " xp)");
-      return button("upgrade evade", "Upgrade Evade to " + (this.evade + .1) + " (" + upgradeEvadeXPCost + " xp)");
+      button("upgrade evade", "Upgrade Evade to " + (this.evade + .1) + " (" + upgradeEvadeXPCost + " xp)");
+      return button("inTown", "Back to town square");
     } else if (this.state === "upgrade evade") {
       if (this.xp >= upgradeEvadeXPCost) {
         this.xp -= upgradeEvadeXPCost;
@@ -478,26 +522,36 @@ Blacksmith
       if (this.gp >= cost) {
         println("You pay " + cost + " gp");
         this.hp += 10;
-        return this.gp -= cost;
+        this.gp -= cost;
       } else {
         println("you trying to cheat me boy.");
-        return setState("mage");
       }
+      return setState("mage");
     } else if (this.state === "potions") {
       println("Potions will give you momentary advantages over enemies but they only last for a single battle.");
-      return button("Health Potion buying", "Buy Health potion (30 gp)");
+      button("Health Potion buying", "Buy Health potion (30 gp)");
+      return button("mage", "Thanks!");
     } else if (this.state === "staffs") {
       println("Staffs are what make the mage, if you watched lord of the rings you would know that.");
       return setState("mage");
     } else if (this.state === "scrolls") {
       println("Scrolls are powerfull spells that can decimate your enemy.");
-      return setState("mage");
+      button("damage-curse scroll buying", "Buy a damage-curse scroll");
+      return button("mage", "Thanks!");
     } else if (this.state === "Health Potion buying") {
       if (gp >= 30) {
         gp -= 30;
         inventory.push(new HealthPotion());
       } else {
         println("You trying to cheat me scamp!!!");
+      }
+      return setState("mage");
+    } else if (this.state === "damage-curse scroll buying") {
+      if (gp >= 50) {
+        gp -= 50;
+        inventory.push(new DamageCurseScroll());
+      } else {
+        println("You aint got the dough, bro.");
       }
       return setState("mage");
     } else if (this.state === "people") {
@@ -862,7 +916,7 @@ Blacksmith
 }).call(this);
 
 (function() {
-  var $, hugeDamage, hugeDrop, hugeHP, hundredSidedDie, largeDamage, largeDrop, largeHP, mediumDamage, mediumDrop, mediumHP, sixSidedDie, smallDamage, smallDrop, smallHP, tenSidedDie, twentySidedDie;
+  var $;
 
   $ = jQuery;
 
@@ -977,37 +1031,37 @@ Blacksmith
     return this.turn++;
   };
 
-  sixSidedDie = new Die(1, 6, 0);
+  this.sixSidedDie = new Die(1, 6, 0);
 
-  tenSidedDie = new Die(1, 10, 0);
+  this.tenSidedDie = new Die(1, 10, 0);
 
-  twentySidedDie = new Die(1, 20, 0);
+  this.twentySidedDie = new Die(1, 20, 0);
 
-  hundredSidedDie = new Die(1, 100, 0);
+  this.hundredSidedDie = new Die(1, 100, 0);
 
-  smallDrop = new Die(2, 200, -100);
+  this.smallDrop = new Die(2, 200, -100);
 
-  mediumDrop = new Die(4, 200, -200);
+  this.mediumDrop = new Die(4, 200, -200);
 
-  largeDrop = new Die(6, 300, -300);
+  this.largeDrop = new Die(6, 300, -300);
 
-  hugeDrop = new Die(12, 400, -500);
+  this.hugeDrop = new Die(12, 400, -500);
 
-  smallDamage = new Die(3, 6, -3);
+  this.smallDamage = new Die(3, 6, -3);
 
-  mediumDamage = new Die(6, 6, -6);
+  this.mediumDamage = new Die(6, 6, -6);
 
-  largeDamage = new Die(9, 9, -9);
+  this.largeDamage = new Die(9, 9, -9);
 
-  hugeDamage = new Die(15, 12, -2);
+  this.hugeDamage = new Die(15, 12, -2);
 
-  smallHP = new Die(4, 5, +20);
+  this.smallHP = new Die(4, 5, +20);
 
-  mediumHP = new Die(8, 5, +40);
+  this.mediumHP = new Die(8, 5, +40);
 
-  largeHP = new Die(12, 7, +60);
+  this.largeHP = new Die(12, 7, +60);
 
-  hugeHP = new Die(15, 15, +80);
+  this.hugeHP = new Die(15, 15, +80);
 
   this.map = [["Plain of Ashard", "Spider Forest", "Lake Mysterious", "Eora River"], ["foothills", "forest", "marshes", "Amazon"], ["desert", "town of Zemboria", "swamp", "deeper swamp"], ["wasteland", "Beara Mountains", "Zealon Dungeon", "Dangerous Forest"]];
 
