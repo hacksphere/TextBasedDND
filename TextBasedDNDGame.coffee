@@ -44,7 +44,7 @@ $ = jQuery
 			@gp = 0
 
 		@hp = 60
-		println "Almerond: Stop making me revive you, young whippersnapper. I've charged you 200 gold peices for my trouble, thank you very much."
+		println "Almerond: Stop making me revive you, young whippersnapper. I've charged you 200 gold peices for my trouble, thank you very much. Maybe if you bought some of my high-quality health potions you wouldn't die so much."
 		setState "mage"
 
 	# ---- town states ----
