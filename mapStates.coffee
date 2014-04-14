@@ -188,6 +188,14 @@
 			println "As you enter the room, the door slams behind you and a towering orc smiles a sister grin at you."
 			button "leftRoom fight", "Attack him"
 			button "leftRoom talk", "Go up to him"
+		else if not visited "leftRoom fight"
+			button "leftRoom talk", "talk with Chenk again"
+			button "junctionRoom", "go back to the junction room"
+			button "left room trap chest inspect", "go over to the huge engraved chest"
+		else 
+			println "You walk over to the dead corpse of the orc and see a locket bearing the crest of the ajurite paladins, the most elite group of ajurite knights."	
+	else if @state == "left room trap chest inspect"
+			button "left room trap chest","open the chest"
 	else if @state == "leftRoom fight"
 		println "You meet the battle with gusto."
 		@enemies = [corruptedOrc()]
@@ -203,7 +211,7 @@
 		button "whatGoingOn", "What's going on with this dungeon?"
 	
 	else if @state == "whatGoingOn"
-		println "Chenk: This is a dungeon created by the Zealon for their sinis†er rites." 
+		println "Chenk: This is a dungeon created by the Zealon for their sinister rites." 
 		button "whyareyouhere", "Why are you here? And why havent you attacked me?"
 
 	else if @state == "whyareyouhere"
@@ -212,9 +220,7 @@
 
 	else if @state == "more"
 		println "Chenk: The Zealon are bad but its debatable if they are the worst. The Ajurites are also pretty bad. They are good but over-zealous. They will kill hundreds of people just because one person did something bad. Then there are the Scilos. They are a group of mad scientists who are ruthless in the name of science. They do all kinds of experiments on people and animals."
-		
 		button "leftRoom", "Wow. Thank you."
-
 	# Right room
 	else if @state == "rightRoom"
 		println ""

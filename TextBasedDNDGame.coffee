@@ -1,7 +1,7 @@
 # @prepros-prepend mapStates.coffee
 # @prepros-prepend townStates.coffee
 
-# @prepros-prepend creatures.coffee 
+# @prepros-prepend creatures.coffee
 # @prepros-prepend helperFunctions.coffee
 # @prepros-prepend weapons.coffee
 # @prepros-prepend classes.coffee
@@ -12,9 +12,9 @@ $ = jQuery
 @run = () ->
 	if @turn != 0
 		println "---"
-	
+
 	console.log @state
-	
+
 	for x in [0..3]
 		for y in [0..3]
 			if @map[y][x] == @state
@@ -36,11 +36,11 @@ $ = jQuery
 		println "You find yourself back in the town"
 
 		@xp -= 15
-		if @xp < 0 
+		if @xp < 0
 			@xp = 0
 
 		@gp -= 200
-		if @gp < 0 
+		if @gp < 0
 			@gp = 0
 
 		@hp = 60
@@ -49,17 +49,17 @@ $ = jQuery
 
 	# ---- town states ----
 	townStatesRun()
-	
+
 	# ------------ Map --------------
 	mapStatesRun()
 
 	# --------------- Fights ----------------
 	if @state == "fightYourTurn"
-		
+
 		for enemy in @enemies
 			button "dealDamageToEnemy", "Attack " + enemy
 		button "runAway", "Run Away"
-		
+
 
 	else if @state == "dealDamageToEnemy"
 		damage = @weapon.roll()
@@ -68,20 +68,20 @@ $ = jQuery
 			println "You missed!"
 		else
 			println "You hit him for #{damage} damage"
-	
+
 		@enemies[0].hp -= damage
 
 		setState "fightEnemyTurn"
 
 	else if @state == "fightEnemyTurn"
-		
+
 		if @enemies[0].isDead()
 			setState "winBattle"
 		else
 			button "evade", "Evade (#{@evade * 100}% change of evading all damage)"
 			button "block", "Block (enemy does #{@block} less damage to you)"
 
-	else if @state == "runAway"	
+	else if @state == "runAway"
 		damage = @enemies[0].weapon.roll()
 		if damage == 0
 			println "You sucessfully run away and take no damage"
@@ -89,7 +89,7 @@ $ = jQuery
 			println "You take #{damage} damage as you are running away"
 
 		@hp -= damage
-		
+
 		setState loadState()
 
 	# ---- Evade and Block ----
@@ -114,7 +114,7 @@ $ = jQuery
 		else
 			println "You took #{damage} damage"
 			@hp -= damage
-	
+
 		setState "fightYourTurn"
 
 	else if @state == "winBattle"

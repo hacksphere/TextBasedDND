@@ -846,7 +846,15 @@ Blacksmith
         println("As you enter the room, the door slams behind you and a towering orc smiles a sister grin at you.");
         button("leftRoom fight", "Attack him");
         return button("leftRoom talk", "Go up to him");
+      } else if (!visited("leftRoom fight")) {
+        button("leftRoom talk", "talk with Chenk again");
+        button("junctionRoom", "go back to the junction room");
+        return button("left room trap chest inspect", "go over to the huge engraved chest");
+      } else {
+        return println("You walk over to the dead corpse of the orc and see a locket bearing the crest of the ajurite paladins, the most elite group of ajurite knights.");
       }
+    } else if (this.state === "left room trap chest inspect") {
+      return button("left room trap chest", "open the chest");
     } else if (this.state === "leftRoom fight") {
       println("You meet the battle with gusto.");
       this.enemies = [corruptedOrc()];
@@ -859,7 +867,7 @@ Blacksmith
       println("Hello my name is Chenk.");
       return button("whatGoingOn", "What's going on with this dungeon?");
     } else if (this.state === "whatGoingOn") {
-      println("Chenk: This is a dungeon created by the Zealon for their sinis†er rites.");
+      println("Chenk: This is a dungeon created by the Zealon for their sinister rites.");
       return button("whyareyouhere", "Why are you here? And why havent you attacked me?");
     } else if (this.state === "whyareyouhere") {
       println("I am here because the Zealon experimented their corruption magic on me but it backfired. Orcs arent all bad you know its just that the Zealon corrupted many of my kind. I cant leave the dungeon because of some strange magic.");
