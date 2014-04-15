@@ -189,6 +189,15 @@ $ = jQuery
 @inventory = [new HealthPotion(), new HealthPotion()]
 @weapon = new Weapon smallDamage, "Short Sword", 10
 
+###
+These are your alignments with the various factions.
+Each alignment is a value between -1 and 1 where -1 corresponds to extreme dislike,
+and 1 corresponds to them liking you extremely much
+###
+@ajuriteAlignment = 0
+@sciloAlignment = 0
+@zealonAlignment = 0
+
 @statesEntered = []
 
 

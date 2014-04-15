@@ -304,7 +304,7 @@ Blacksmith
   };
 
   this.randomAdjective = function() {
-    return ["Mean", "Nasty", "Terrible"][Math.floor(Math.random() * 3)];
+    return ["Mean", "Nasty", "Terrible", "Ugly"][Math.floor(Math.random() * 4)];
   };
 
   this.showMap = function() {
@@ -336,6 +336,26 @@ Blacksmith
     return console.log("TEST");
   };
 
+  this.convertAlignmentNumberToWord = function(number) {
+    if (number === -1) {
+      return "Hate";
+    } else if (number === 0) {
+      return "neautral";
+    } else if (number === 1) {
+      return "Love";
+    } else if (number < -0.5) {
+      return "Strongly Dislike";
+    } else if (number < 0) {
+      return "Dislike";
+    } else if (number > 0.5) {
+      return "Strongly Like";
+    } else if (number > 0) {
+      return "Like";
+    } else {
+      return "ERROR, COMPUTER BLOWING UP IN 5... 4... 3... 2... 1... BOOOOOOOOOOOOOOOOOOM (EXPLOSION NOISES)";
+    }
+  };
+
   this.refresh = function() {
     var enemy, index, item, _i, _j, _len, _len1, _ref, _ref1;
     ($(".stats")).html("");
@@ -353,6 +373,10 @@ Blacksmith
     printstat("GP: " + this.gp);
     printstat("XP: " + this.xp);
     printstat("");
+    printstat("Your allignments:");
+    printstat("Zealon: " + (convertAlignmentNumberToWord(this.zealonAlignment)));
+    printstat("Scilo: " + (convertAlignmentNumberToWord(this.sciloAlignment)));
+    printstat("Ajurite: " + (convertAlignmentNumberToWord(this.ajuriteAlignment)));
     printstat("Weapon:");
     printstat("" + this.weapon);
     ($(".inventory")).html("");
@@ -382,14 +406,6 @@ Blacksmith
     return new Monster("Dwarf Beserker", smallHP.roll(), mediumDamage, mediumDrop.roll(), 30);
   };
 
-  this.animatedCactus = function() {
-    return new Monster("Animated Cactus", mediumHP.roll(), smallDamage, smallDrop.roll(), 20);
-  };
-
-  this.riverMonster = function() {
-    return new Monster("River Monster", largeHP.roll(), mediumDamage, largeDrop.roll(), 50);
-  };
-
   this.horseMan = function() {
     return new Monster("Horse Man", smallHP.roll(), mediumDamage, mediumDrop.roll(), 30);
   };
@@ -412,6 +428,14 @@ Blacksmith
 
   this.spider = function() {
     return new Monster("Spider", smallHP.roll(), mediumDamage, mediumDrop.roll(), 25);
+  };
+
+  this.animatedCactus = function() {
+    return new Monster("Animated Cactus", mediumHP.roll(), smallDamage, smallDrop.roll(), 20);
+  };
+
+  this.riverMonster = function() {
+    return new Monster("River Monster", largeHP.roll(), mediumDamage, largeDrop.roll(), 50);
   };
 
 }).call(this);
@@ -1100,6 +1124,19 @@ Blacksmith
   this.inventory = [new HealthPotion(), new HealthPotion()];
 
   this.weapon = new Weapon(smallDamage, "Short Sword", 10);
+
+  /*
+  These are your alignments with the various factions.
+  Each alignment is a value between -1 and 1 where -1 corresponds to extreme dislike,
+  and 1 corresponds to them liking you extremely much
+  */
+
+
+  this.ajuriteAlignment = 0;
+
+  this.sciloAlignment = 0;
+
+  this.zealonAlignment = 0;
 
   this.statesEntered = [];
 

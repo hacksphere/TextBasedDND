@@ -36,7 +36,7 @@
 	x >=0 and y >= 0 and x < 4 and y < 4 #The map is currently a 4x4
 
 @randomAdjective = ->
-	["Mean", "Nasty", "Terrible"][Math.floor(Math.random() * 3)]
+	["Mean", "Nasty", "Terrible", "Ugly"][Math.floor(Math.random() * 4)]
 
 @showMap = () ->
 	if inBounds(@locY+1, @locX) and @map[@locY+1][@locX]
@@ -60,6 +60,23 @@
 	@inventory[n].use()
 	console.log "TEST"
 
+@convertAlignmentNumberToWord = (number) ->
+	if (number) == -1
+		return "Hate"
+	else if (number) == 0
+		return "neautral"
+	else if (number) == 1
+		return "Love"
+	else if (number) < -0.5
+		return "Strongly Dislike"
+	else if (number) < 0
+	 	return "Dislike"
+	else if (number) > 0.5
+		return "Strongly Like"
+	else if (number) > 0
+		return "Like"
+	else
+		return "ERROR, COMPUTER BLOWING UP IN 5... 4... 3... 2... 1... BOOOOOOOOOOOOOOOOOOM (EXPLOSION NOISES)"
 @refresh = ->
 	#Refresh the stats:
 	($ ".stats").html("")
@@ -76,6 +93,10 @@
 	printstat "GP: #{@gp}"
 	printstat "XP: #{@xp}"
 	printstat ""
+	printstat "Your allignments:"
+	printstat "Zealon: #{convertAlignmentNumberToWord(@zealonAlignment)}"
+	printstat "Scilo: #{convertAlignmentNumberToWord(@sciloAlignment)}"
+	printstat "Ajurite: #{convertAlignmentNumberToWord(@ajuriteAlignment)}"
 	printstat "Weapon:"
 	printstat "#{@weapon}"
 
